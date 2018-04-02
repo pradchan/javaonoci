@@ -36,8 +36,8 @@ PUBLIC_IP=${INPUT%%:*}
 
 echo "Public IP of DBCS service instance ${ServiceName} is ${PUBLIC_IP}"
 #
-scp -o "StrictHostKeyChecking no" -o "ProxyCommand=nc --proxy ${PXY} %h %p" -i ./../keys/labkey ./../data/*.sql oracle@${PUBLIC_IP}:/home/oracle/.
+scp -o "StrictHostKeyChecking no" -o "ProxyCommand=nc --proxy ${PXY} %h %p" -i keys/labkey data/*.sql oracle@${PUBLIC_IP}:/home/oracle/.
 #
-ssh -o "StrictHostKeyChecking no" -o "ProxyCommand=nc --proxy ${PXY} %h %p" -i ./../keys/labkey oracle@${PUBLIC_IP} "cat /home/oracle/createAlphaUser.sql | sqlplus system/JavaOnOCI1#@PDB1".sql
+ssh -o "StrictHostKeyChecking no" -o "ProxyCommand=nc --proxy ${PXY} %h %p" -i keys/labkey oracle@${PUBLIC_IP} "cat /home/oracle/createAlphaUser.sql | sqlplus system/JavaOnOCI1#@PDB1".sql
 #
-ssh -o "StrictHostKeyChecking no" -o "ProxyCommand=nc --proxy ${PXY} %h %p" -i ./../keys/labkey oracle@${PUBLIC_IP} "cat /home/oracle/createProducts.sql | sqlplus alpha/oracle@PDB1"
+ssh -o "StrictHostKeyChecking no" -o "ProxyCommand=nc --proxy ${PXY} %h %p" -i keys/labkey oracle@${PUBLIC_IP} "cat /home/oracle/createProducts.sql | sqlplus alpha/oracle@PDB1"
