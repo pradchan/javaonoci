@@ -18,8 +18,8 @@ if echo "${region}" | grep -q "em"; then
 fi
 #
 
-export HTTP_PROXY="http://${PXY}"
-export HTTPS_PROXY="https://${PXY}"
+#export HTTP_PROXY="http://${PXY}"
+#export HTTPS_PROXY="https://${PXY}"
 
 response=$(curl --request GET \
                 --user "${OPC_USERNAME}:${OPC_PASSWORD}" \
@@ -38,11 +38,11 @@ echo "PublicIP = $PUBLIC_IP"
 
 
 #
-scp -o "StrictHostKeyChecking no" -o "ProxyCommand=nc --proxy ${PXY} %h %p" -i ./../keys/labkey ./../keys/labkey.pub opc@${PUBLIC_IP}:/home/opc/.
-scp -o "StrictHostKeyChecking no" -o "ProxyCommand=nc --proxy ${PXY} %h %p" -i ./../keys/labkey ./setupJCS.sh opc@${PUBLIC_IP}:/home/opc/.
-ssh -t -t -o "StrictHostKeyChecking no" -o "ProxyCommand=nc --proxy ${PXY} %h %p" -i ./../keys/labkey opc@${PUBLIC_IP} "sudo /home/opc/setupJCS.sh"
+scp -o "StrictHostKeyChecking no" -i ./../keys/labkey ./../keys/labkey.pub opc@${PUBLIC_IP}:/home/opc/.
+scp -o "StrictHostKeyChecking no" -i ./../keys/labkey ./setupJCS.sh opc@${PUBLIC_IP}:/home/opc/.
+ssh -t -t -o "StrictHostKeyChecking no" -i ./../keys/labkey opc@${PUBLIC_IP} "sudo /home/opc/setupJCS.sh"
 #
-scp -o "StrictHostKeyChecking no" -o "ProxyCommand=nc --proxy ${PXY} %h %p" -i ./../keys/labkey runAlphaDS.sh oracle@${PUBLIC_IP}:~oracle/.
-scp -o "StrictHostKeyChecking no" -o "ProxyCommand=nc --proxy ${PXY} %h %p" -i ./../keys/labkey ./../data/create_data_source.py oracle@${PUBLIC_IP}:~oracle/.
-scp -o "StrictHostKeyChecking no" -o "ProxyCommand=nc --proxy ${PXY} %h %p" -i ./../keys/labkey Alpha-ds.properties oracle@${PUBLIC_IP}:~oracle/.
-ssh -o "StrictHostKeyChecking no" -o "ProxyCommand=nc --proxy ${PXY} %h %p" -i ./../keys/labkey oracle@${PUBLIC_IP} "/u01/app/oracle/tools/home/oracle/runAlphaDS.sh"
+scp -o "StrictHostKeyChecking no" -i ./../keys/labkey runAlphaDS.sh oracle@${PUBLIC_IP}:~oracle/.
+scp -o "StrictHostKeyChecking no" -i ./../keys/labkey ./../data/create_data_source.py oracle@${PUBLIC_IP}:~oracle/.
+scp -o "StrictHostKeyChecking no" -i ./../keys/labkey Alpha-ds.properties oracle@${PUBLIC_IP}:~oracle/.
+ssh -o "StrictHostKeyChecking no" -i ./../keys/labkey oracle@${PUBLIC_IP} "/u01/app/oracle/tools/home/oracle/runAlphaDS.sh"
